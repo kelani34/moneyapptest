@@ -26,7 +26,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" flex-1 max-w-2xl  px-14 py-10 bg-white rounded-xl shadow-[0px_4px_25px_rgba(102,102,102,0.2)]">
+    <div className=" flex-1 max-w-2xl  px-14 py-10 bg-white rounded-xl shadow-[0px_4px_25px_rgba(102,102,102,0.2)] m-3">
       <div className=" lg:mb-12 md:mb-8 mb-6">
         <h2 className="text-[#1A1A1A] font-semibold lg:text-2xl md:text-lg text-sm ">
           Login to your dashboard
