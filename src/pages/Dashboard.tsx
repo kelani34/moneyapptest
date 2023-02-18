@@ -45,7 +45,7 @@ const Dashboard = () => {
       return () => clearTimeout(timer);
     }
     if (!user.loggedIn) {
-      navigate("/login");
+      navigate("/");
     }
   }, [user.loggedIn, logout, navigate]);
 

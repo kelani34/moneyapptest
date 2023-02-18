@@ -37,7 +37,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/profile" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
           </Routes>
         </Router>
       </LoginContext.Provider>

@@ -9,6 +9,7 @@ type Feature = {
   img: string;
   title: string;
   text: string;
+  selected: boolean;
 };
 const LoginContent = () => {
   const features: Feature[] = [
@@ -16,16 +17,19 @@ const LoginContent = () => {
       img: ft1,
       title: "Manage your orders",
       text: "View all your orders and their status in real time",
+      selected: false,
     },
     {
       img: ft2,
       title: "Manage your orders",
       text: "View all your orders and their status in real time",
+      selected: false,
     },
     {
       img: ft3,
       title: "Manage your orders",
       text: "View all your orders and their status in real time",
+      selected: true,
     },
   ];
   return (
@@ -49,7 +53,7 @@ const LoginContent = () => {
               img={feature.img}
               title={feature.title}
               text={feature.text}
-              selected={true}
+              selected={feature.selected}
             />
           );
         })}
