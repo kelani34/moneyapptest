@@ -1,5 +1,4 @@
-// UserContext.tsx
-import React, { createContext, useContext, useState } from "react";
+import  { createContext, useContext } from "react";
 
 export type User = {
   loggedIn: boolean;

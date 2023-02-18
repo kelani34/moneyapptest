@@ -5,7 +5,7 @@ import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 let client = new ApolloClient({
-  uri: "https://studio.apollographql.com/public/SpaceX-pxxbxen/explorer?variant=current",
+  uri: "https://spacex-production.up.railway.app/",
   cache: new InMemoryCache(),
 });
 

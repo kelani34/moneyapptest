@@ -11,7 +11,7 @@ type Feature = {
   text: string;
 };
 const LoginContent = () => {
-  const features = [
+  const features: Feature[] = [
     {
       img: ft1,
       title: "Manage your orders",

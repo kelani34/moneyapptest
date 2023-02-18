@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
   const navigate = useNavigate();
 
   const { login, user } = useUser();
@@ -20,10 +16,12 @@ const LoginForm = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     login(email, password);
-    if (user.loggedIn) {
-      navigate("/profile");
-    }
   };
+  useEffect(() => {
+    if (user.loggedIn) {
+      window.location.href = "/profile";
+    }
+  }, [user.loggedIn, navigate]);
 
   return (
     <div className=" flex-1 max-w-2xl  px-14 py-10 bg-white rounded-xl shadow-[0px_4px_25px_rgba(102,102,102,0.2)] m-3">

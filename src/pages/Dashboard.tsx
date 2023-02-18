@@ -7,20 +7,40 @@ import soon1 from "../assets/soon-1.png";
 import soon2 from "../assets/soon-2.png";
 import soon3 from "../assets/soon-3.png";
 import notification from "../assets/notification.png";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
+import toast, { Toaster } from "react-hot-toast";
 
-type Props = {
-  props: any;
+type Data = {
+  ceo: string;
+  cto: string;
+  name: string;
 };
+
+type UseData = {
+  company: Data;
+};
+const GET_DATA = gql`
+  {
+    company {
+      name
+      ceo
+      cto
+    }
+  }
+`;
 const Dashboard = () => {
   const { user, logout } = useUser();
   const navigate = useNavigate();
+
+  const { loading, data, error } = useQuery<UseData>(GET_DATA);
+
+  console.log("data", data);
 
   useEffect(() => {
     if (user.loggedIn) {
       const timer = setTimeout(() => {
         logout();
-      }, 30 * 60 * 1000);
+      }, 2 * 60 * 1000);
 
       return () => clearTimeout(timer);
     }
@@ -31,8 +51,13 @@ const Dashboard = () => {
 
   console.log("profile uessssss", user);
 
+  if (error) {
+    toast.error("Something went wrong");
+  }
+
   return (
     <div className="h-full relative">
+      <Toaster position="top-right" reverseOrder={false} />
       <Navbar />
       <div className="max-w-7xl my-4 mx-auto h-full">
         <div className="flex lg:gap-10 md:gap-8 gap-4 m-4 flex-wrap">
@@ -40,29 +65,35 @@ const Dashboard = () => {
             <div>
               <div className="flex flex-col lg:flex-row md:flex-row lg:gap-5 md:gap-3 gap-1 h-24 items-center">
                 <div className="border border-solid border-[#FCB6C0] rounded-[100%]  p-[3px] relative">
-                  <div className="bg-[#FEE7EA] p-3 text-[#1CC578] lg:text-2xl md:text-lg text-sm rounded-full">
-                    <p>CN</p>
+                  <div className="bg-[#FEE7EA] p-3 text-[#1CC578] lg:text-2xl md:text-lg text-sm rounded-full ">
+                    <p className="w-8 text-center h-8">
+                      {data?.company.name
+                        .split(" ")
+                        .map(([firstLetter]) => firstLetter)
+                        .join("")}
+                    </p>
                   </div>
                 </div>
-                <h2 className=" font-semibold lg:text-2xl md:text-lg text-sm ">
-                  Company Name
+                <h2 className=" font-semibold lg:text-2xl md:text-lg text-sm">
+                  {/* {company && company.name} */}
+                  {loading ? "Loading..." : data?.company.name}
                 </h2>
               </div>
               <div>
-                <div>
+                <div className=" md:mb-6">
                   <p className="fonrt-normal text-xs text-[#858585] leading-5 md:text-left text-center">
                     CEO
                   </p>
                   <h3 className="font-normal text-base text-[#1A1A1A] leading-6 md:text-left text-center">
-                    CEO NAME
+                    {loading ? "Loading..." : data?.company.ceo.toUpperCase()}
                   </h3>
                 </div>
                 <div>
                   <p className="fonrt-normal text-xs text-[#858585] leading-5 md:text-left text-center">
-                    CEO
+                    CTO
                   </p>
                   <h3 className="font-normal text-base text-[#1A1A1A] leading-6 md:text-left text-center">
-                    CEO NAME
+                    {loading ? "Loading..." : data?.company.cto.toUpperCase()}
                   </h3>
                 </div>
               </div>
