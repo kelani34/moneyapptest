@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../AuthProvider";
+import { UserContext } from "../auth/UserContext";
 
 const LoginForm = () => {
+  const { login, isLoggedIn } = useContext(UserContext);
   const [viewPassword, setViewPassword] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const navigate = useNavigate();
-
-  const { login, user } = useUser();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     login(email, password);
   };
   useEffect(() => {
-    if (user.loggedIn) {
-      window.location.href = "/profile";
+    if (isLoggedIn) {
+      navigate("/profile");
     }
-  }, [user.loggedIn, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className=" flex-1 max-w-2xl  px-14 py-10 bg-white rounded-xl shadow-[0px_4px_25px_rgba(102,102,102,0.2)] m-3">
@@ -75,7 +73,7 @@ const LoginForm = () => {
           </div>
           <button
             type="submit"
-            className="bg-[#1CC578] w-full p-5 rounded-[40px] text-white lg:text-base md:text-sm text-xs "
+            className="bg-[#1CC578] w-full p-5 rounded-[40px] text-white lg:text-base md:text-sm text-xs active:scale-90 "
           >
             Login
           </button>

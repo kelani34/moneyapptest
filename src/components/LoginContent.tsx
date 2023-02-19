@@ -4,13 +4,9 @@ import Features from "./Features";
 import ft1 from "../assets/feature-1.png";
 import ft2 from "../assets/feature-2.png";
 import ft3 from "../assets/feature-3.png";
+import { Feature } from "../types/Types";
 
-type Feature = {
-  img: string;
-  title: string;
-  text: string;
-  selected: boolean;
-};
+
 const LoginContent = () => {
   const features: Feature[] = [
     {
